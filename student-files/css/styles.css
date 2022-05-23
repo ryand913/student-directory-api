@@ -14,9 +14,9 @@ html, body {
 }
 
 body {
-    font-family: "Didot", sans-serif;
+    font-family: "New Century Schoolbook", sans-serif;
     text-align: center;
-    background: rgba(235, 235, 235, 0.9);
+    background: rgba(114, 168, 204, 0.568);
 }
 
 header {
@@ -90,6 +90,7 @@ header h1 {
     border: 1px solid rgba(50, 50, 50, 0.3);
     transition: .4s ease-out;
     overflow: hidden;
+    box-shadow: 8px 8px 5px grey;
 }
 
 .card-img {
