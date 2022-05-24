@@ -1,26 +1,25 @@
 const gallery = document.querySelector("#gallery");
 const body = document.querySelector("body");
-const studentLength = 12;
 const search = document.querySelector(".search-container");
 const apiURL = 'https://randomuser.me/api/?nat=us&results=12';
-let globalData = '';
-let studentNumber = '';
+let employeeData = '';
+let employeeNumber = '';
 
-//Calling 
+//Calling API to display results from randomuser.me and add them to the page
 function fetchData(url) {
     return fetch(url)
              .then(res => res.json())
   }
 fetchData(apiURL)
     .then(data => data.results)
-    .then(studentsAppend)
+    .then(employeeAppend)
     .then(searchBar)
     .catch(err => alert(err));
 
 
-function studentsAppend(attributes){
-    globalData = attributes;
-    const values = globalData.map(attribute =>`<div class="card">
+function employeeAppend(attributes){
+    employeeData = attributes;
+    const values = employeeData.map(attribute =>`<div class="card">
     <div class="card-img-container">
         <img class="card-img" src="${attribute.picture.large}" alt="profile picture">
     </div>
@@ -36,15 +35,15 @@ function studentsAppend(attributes){
     cards.forEach((card,index) => 
 card.addEventListener("click", e => {
 modalDisplay(index);
-studentNumber = index;
+employeeNumber = index;
 })
 
 )
 
 }
-
+//generates the HTML of the modal and inserts at the end of body tag
 function modalDisplay(position){
- const values = globalData.map(attribute =>
+ const values = employeeData.map(attribute =>
             `<div class="modal-container">
             <div class="modal">
                 <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -65,11 +64,10 @@ function modalDisplay(position){
         </div>
     </div>`).filter((list,index) => position === index);
             body.insertAdjacentHTML("beforeend",values);
-            studentNumber = position
+            employeeNumber = position
             closeButton();
-            // toggleBtns(position);
 }
-
+//remove Modal when close button is clicked
 function closeButton(){
 const closeBtn = document.querySelector("#modal-close-btn");
 const modal = document.querySelector(".modal-container");
@@ -79,14 +77,14 @@ body.removeChild(modal);
 });
 }
 }
-
+//convert date based on required format
 function dateFormat(number){
     let newdate = 
         number.split('T')[0].replace(/-/g,'/').split('/');
     const convertdate = `${newdate[1]}\/${newdate[2]}\/${newdate[0]} `
     return convertdate
 }
-
+//Function to use the searchbar to narrow results on the page based on search input
 function searchBar(){
     if(search){
 const searchHTML = `<form action="#" method="get">
@@ -119,16 +117,12 @@ search.insertAdjacentHTML("beforeend",searchHTML);
     }
 }
 
-// function replaceModal(){
-//     document.querySelector(".modal-container").remove();
-// }
-// function toggleBtns (position){
-
+//Event Listeners for Next & Prev Buttons
 document.addEventListener("click", e => {
     if(e.target && e.target.id === 'modal-next'){
         document.querySelector(".modal-container").remove();
-        if(studentNumber <= 10){
-        modalDisplay(studentNumber + 1);
+        if(employeeNumber <= 10){
+        modalDisplay(employeeNumber + 1);
         }
         else {
             modalDisplay(0);
@@ -137,15 +131,14 @@ document.addEventListener("click", e => {
     
     else if (e.target && e.target.id === 'modal-prev'){
         document.querySelector(".modal-container").remove();
-        if(studentNumber === 0){
+        if(employeeNumber === 0){
             modalDisplay(11);
             }
             else {
-                modalDisplay(studentNumber - 1);
+                modalDisplay(employeeNumber - 1);
             }
     }
 });
 
-// }
 
 
