@@ -53,7 +53,7 @@ function modalDisplay(position){
                     <p class="modal-text">${attribute.email}</p>
                     <p class="modal-text cap">${attribute.location.city}</p>
                     <hr>
-                    <p class="modal-text">${attribute.cell}</p>
+                    <p class="modal-text">${attribute.cell.replace("-", " ")}</p>
                     <p class="modal-text">${attribute.location.street.number} ${attribute.location.street.name}, ${attribute.location.city}, ${attribute.location.state}, ${attribute.location.postcode}</p>
                     <p class="modal-text">Birthday: ${dateFormat(attribute.dob.date)}</p>
                 </div>
